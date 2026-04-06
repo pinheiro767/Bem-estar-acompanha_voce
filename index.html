@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Diário da Vera</title>
+
+<link rel="manifest" href="manifest.json">
+
+<meta name="theme-color" content="#7C7CFF">
+
+<style>
+
+body{
+font-family:system-ui;
+margin:0;
+background:linear-gradient(180deg,#f0f2ff,#ffffff);
+color:#333;
+}
+
+header{
+background:#7C7CFF;
+color:white;
+padding:25px;
+text-align:center;
+}
+
+.container{
+max-width:850px;
+margin:auto;
+padding:20px;
+}
+
+.card{
+background:white;
+padding:22px;
+margin-bottom:18px;
+border-radius:18px;
+box-shadow:0 8px 18px rgba(0,0,0,0.1);
+}
+
+.avatar{
+font-size:60px;
+text-align:center;
+}
+
+button{
+background:#7C7CFF;
+color:white;
+border:none;
+padding:14px;
+border-radius:10px;
+font-size:16px;
+margin-top:10px;
+cursor:pointer;
+}
+
+textarea,input{
+width:100%;
+padding:12px;
+border-radius:10px;
+border:1px solid #ccc;
+margin-top:8px;
+}
+
+.right{
+background:#eef0ff;
+padding:12px;
+border-radius:10px;
+margin-top:10px;
+}
+
+.install{
+position:fixed;
+bottom:25px;
+right:25px;
+background:#ff6b6b;
+padding:16px;
+border-radius:40px;
+color:white;
+}
+
+.dark{
+background:#111;
+color:white;
+}
+
+.dark .card{
+background:#1f1f1f;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<h1>🌷 Diário da Vera</h1>
+<p>Seus direitos e sua tranquilidade</p>
+
+</header>
+
+<div class="container">
+
+<div class="card">
+
+<div class="avatar">👵</div>
+
+<h2>Mensagem para você, Vera</h2>
+
+<p>
+Você tem direitos garantidos por lei.  
+Seu tratamento deve ser respeitado.
+</p>
+
+<button onclick="falar()">Ouvir mensagem</button>
+
+</div>
+
+<div class="card">
+
+<h2>💙 Botão de tranquilidade</h2>
+
+<p>Clique quando sentir preocupação.</p>
+
+<button onclick="acalmar()">Me tranquilizar</button>
+
+<div id="msg"></div>
+
+</div>
+
+<div class="card">
+
+<h2>📖 Direitos importantes</h2>
+
+<div class="right">✔ Direito à saúde integral</div>
+
+<div class="right">✔ Prioridade em atendimentos médicos</div>
+
+<div class="right">✔ Continuidade do tratamento</div>
+
+<div class="right">✔ Proteção contra abusos de planos de saúde</div>
+
+<div class="right">✔ Informação clara sobre seu tratamento</div>
+
+</div>
+
+<div class="card">
+
+<h2>🧠 Diário emocional</h2>
+
+<textarea id="diario"></textarea>
+
+<button onclick="salvar()">Salvar</button>
+
+</div>
+
+<div class="card">
+
+<h2>🔎 Buscar direito</h2>
+
+<input id="busca" placeholder="ex: cirurgia, plano">
+
+<button onclick="buscar()">Buscar</button>
+
+<div id="resultado"></div>
+
+</div>
+
+<div class="card">
+
+<h2>📅 Lembretes médicos</h2>
+
+<input id="consulta" placeholder="ex: consulta ortopedia">
+
+<button onclick="salvarConsulta()">Salvar</button>
+
+<div id="lista"></div>
+
+</div>
+
+<div class="card">
+
+<h2>⚙ Configurações</h2>
+
+<button onclick="modoEscuro()">Modo escuro</button>
+
+</div>
+
+</div>
+
+<button id="installBtn" class="install" style="display:none">
+Instalar
+</button>
+
+<script>
+
+function falar(){
+
+let msg=new SpeechSynthesisUtterance(
+"Vera, você está protegida pela lei. Seus direitos garantem sua saúde e sua dignidade."
+)
+
+speechSynthesis.speak(msg)
+
+}
+
+function acalmar(){
+
+let mensagens=[
+"Você está protegida.",
+"Seu tratamento é um direito.",
+"Você não está sozinha.",
+"A lei protege sua saúde."
+]
+
+let m=mensagens[Math.floor(Math.random()*mensagens.length)]
+
+document.getElementById("msg").innerHTML=
+"<div class='right'>"+m+"</div>"
+
+}
+
+function salvar(){
+
+localStorage.setItem(
+"diario",
+document.getElementById("diario").value
+)
+
+alert("Diário salvo")
+
+}
+
+document.getElementById("diario").value=
+localStorage.getItem("diario")||""
+
+function buscar(){
+
+let termo=document.getElementById("busca").value.toLowerCase()
+
+let r=""
+
+if(termo.includes("cirurgia"))
+r="O plano não pode interromper tratamento em curso."
+
+if(termo.includes("plano"))
+r="Planos devem garantir continuidade terapêutica."
+
+if(termo.includes("idoso"))
+r="O Estatuto garante prioridade no atendimento."
+
+if(r=="")
+r="Direito protegido pelo Estatuto da Pessoa Idosa."
+
+document.getElementById("resultado").innerHTML=
+"<div class='right'>"+r+"</div>"
+
+}
+
+function salvarConsulta(){
+
+let c=document.getElementById("consulta").value
+
+let lista=JSON.parse(localStorage.getItem("consultas")||"[]")
+
+lista.push(c)
+
+localStorage.setItem("consultas",JSON.stringify(lista))
+
+mostrar()
+
+}
+
+function mostrar(){
+
+let lista=JSON.parse(localStorage.getItem("consultas")||"[]")
+
+let html=""
+
+lista.forEach(i=>{
+html+="<div class='right'>"+i+"</div>"
+})
+
+document.getElementById("lista").innerHTML=html
+
+}
+
+mostrar()
+
+function modoEscuro(){
+
+document.body.classList.toggle("dark")
+
+}
+
+let deferredPrompt
+
+window.addEventListener('beforeinstallprompt',e=>{
+
+e.preventDefault()
+
+deferredPrompt=e
+
+installBtn.style.display="block"
+
+})
+
+installBtn.onclick=()=>{
+
+deferredPrompt.prompt()
+
+}
+
+if('serviceWorker' in navigator){
+
+navigator.serviceWorker.register('sw.js')
+
+}
+
+</script>
+
+</body>
+</html>
