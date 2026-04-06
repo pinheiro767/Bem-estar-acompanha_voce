@@ -1,10 +1,10 @@
 {
 "name":"Diário da Vera",
-"short_name":"Diário Vera",
+"short_name":"Vera",
 "start_url":"index.html",
 "display":"standalone",
 "background_color":"#ffffff",
-"theme_color":"#7C7CFF",
+"theme_color":"#6C7CFF",
 "icons":[
 {
 "src":"icon.png",
