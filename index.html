@@ -4,58 +4,58 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Diário da Vera</title>
 
 <link rel="manifest" href="manifest.json">
 
-<meta name="theme-color" content="#7C7CFF">
+<meta name="theme-color" content="#6C7CFF">
 
 <style>
 
 body{
 font-family:system-ui;
 margin:0;
-background:linear-gradient(180deg,#f0f2ff,#ffffff);
+background:linear-gradient(180deg,#eef1ff,#ffffff);
 color:#333;
 }
 
 header{
-background:#7C7CFF;
+background:#6C7CFF;
 color:white;
 padding:25px;
 text-align:center;
 }
 
 .container{
-max-width:850px;
+max-width:900px;
 margin:auto;
 padding:20px;
 }
 
 .card{
 background:white;
-padding:22px;
+padding:20px;
 margin-bottom:18px;
 border-radius:18px;
-box-shadow:0 8px 18px rgba(0,0,0,0.1);
+box-shadow:0 10px 20px rgba(0,0,0,0.08);
 }
 
 .avatar{
-font-size:60px;
+font-size:70px;
 text-align:center;
 }
 
 button{
-background:#7C7CFF;
+background:#6C7CFF;
 color:white;
 border:none;
 padding:14px;
 border-radius:10px;
 font-size:16px;
-margin-top:10px;
 cursor:pointer;
+margin-top:10px;
 }
 
 textarea,input{
@@ -63,7 +63,7 @@ width:100%;
 padding:12px;
 border-radius:10px;
 border:1px solid #ccc;
-margin-top:8px;
+margin-top:10px;
 }
 
 .right{
@@ -101,7 +101,7 @@ background:#1f1f1f;
 <header>
 
 <h1>🌷 Diário da Vera</h1>
-<p>Seus direitos e sua tranquilidade</p>
+<p>Seus direitos, sua segurança</p>
 
 </header>
 
@@ -111,11 +111,12 @@ background:#1f1f1f;
 
 <div class="avatar">👵</div>
 
-<h2>Mensagem para você, Vera</h2>
+<h2>Mensagem para você</h2>
 
 <p>
-Você tem direitos garantidos por lei.  
+Vera, você tem direitos garantidos pela lei.
 Seu tratamento deve ser respeitado.
+Você não está sozinha.
 </p>
 
 <button onclick="falar()">Ouvir mensagem</button>
@@ -126,7 +127,7 @@ Seu tratamento deve ser respeitado.
 
 <h2>💙 Botão de tranquilidade</h2>
 
-<p>Clique quando sentir preocupação.</p>
+<p>Clique quando estiver preocupada.</p>
 
 <button onclick="acalmar()">Me tranquilizar</button>
 
@@ -136,25 +137,25 @@ Seu tratamento deve ser respeitado.
 
 <div class="card">
 
-<h2>📖 Direitos importantes</h2>
+<h2>📖 Direitos da pessoa idosa</h2>
 
 <div class="right">✔ Direito à saúde integral</div>
 
-<div class="right">✔ Prioridade em atendimentos médicos</div>
+<div class="right">✔ Atendimento prioritário</div>
 
-<div class="right">✔ Continuidade do tratamento</div>
+<div class="right">✔ Continuidade do tratamento médico</div>
 
-<div class="right">✔ Proteção contra abusos de planos de saúde</div>
+<div class="right">✔ Proteção contra abusos</div>
 
-<div class="right">✔ Informação clara sobre seu tratamento</div>
+<div class="right">✔ Informação clara sobre o tratamento</div>
 
 </div>
 
 <div class="card">
 
-<h2>🧠 Diário emocional</h2>
+<h2>📔 Diário emocional</h2>
 
-<textarea id="diario"></textarea>
+<textarea id="diario" placeholder="Como você está se sentindo hoje?"></textarea>
 
 <button onclick="salvar()">Salvar</button>
 
@@ -162,9 +163,9 @@ Seu tratamento deve ser respeitado.
 
 <div class="card">
 
-<h2>🔎 Buscar direito</h2>
+<h2>🔎 Buscar direitos</h2>
 
-<input id="busca" placeholder="ex: cirurgia, plano">
+<input id="busca" placeholder="ex: cirurgia, plano de saúde">
 
 <button onclick="buscar()">Buscar</button>
 
@@ -174,9 +175,9 @@ Seu tratamento deve ser respeitado.
 
 <div class="card">
 
-<h2>📅 Lembretes médicos</h2>
+<h2>📅 Lembretes de consulta</h2>
 
-<input id="consulta" placeholder="ex: consulta ortopedia">
+<input id="consulta" placeholder="Ex: consulta ortopedia terça">
 
 <button onclick="salvarConsulta()">Salvar</button>
 
@@ -195,7 +196,7 @@ Seu tratamento deve ser respeitado.
 </div>
 
 <button id="installBtn" class="install" style="display:none">
-Instalar
+Instalar App
 </button>
 
 <script>
@@ -203,7 +204,7 @@ Instalar
 function falar(){
 
 let msg=new SpeechSynthesisUtterance(
-"Vera, você está protegida pela lei. Seus direitos garantem sua saúde e sua dignidade."
+"Vera, você tem direitos garantidos pela lei. Seu tratamento deve ser respeitado. Você não está sozinha."
 )
 
 speechSynthesis.speak(msg)
@@ -214,9 +215,9 @@ function acalmar(){
 
 let mensagens=[
 "Você está protegida.",
-"Seu tratamento é um direito.",
-"Você não está sozinha.",
-"A lei protege sua saúde."
+"A lei garante seu tratamento.",
+"Seu médico conhece seu caso.",
+"Você não está sozinha."
 ]
 
 let m=mensagens[Math.floor(Math.random()*mensagens.length)]
@@ -247,7 +248,7 @@ let termo=document.getElementById("busca").value.toLowerCase()
 let r=""
 
 if(termo.includes("cirurgia"))
-r="O plano não pode interromper tratamento em curso."
+r="O plano de saúde não pode interromper tratamento em curso."
 
 if(termo.includes("plano"))
 r="Planos devem garantir continuidade terapêutica."
